@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登陆</title>
+</head>
+<body>
+	<form action="/hello/login" method="post">
+		用户名：<input type="text" name="userName">
+		密码：<input type="password" name="password">
+		<input type="submit" value="登陆">
+	</form>
+	<t-table id="t-table" :tableinfo="tableInfo">
+		
+	</t-table>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"></script>
+<script type="text/javascript">
+	Vue.component('t-table', {
+		props: {
+			tableinfo: {
+				type: Object,
+				required: true
+			}
+		},
+		render: function(createElement) {
+			console.log(this.tableinfo);
+			return createElement('table', [
+				createElement('thead', [
+					createElement('tr',
+						this.tableinfo.theadInfo.map(function(item) {
+							return createElement('th', item);
+						})
+					)
+				]
+				),
+				createElement('tbody', this.tableinfo.list.map(function(item) {
+					return createElement('tr', Object.entries(item).map(function(item) {
+						
+						return createElement('td', item[1]);
+					}));
+				})
+				)
+			]	
+			);
+		}
+	});
+
+	new Vue({
+		el: "#t-table",
+		data: {
+			tableInfo: {
+				theadInfo: ['姓名', '性别'],
+				list: [
+				{
+					name: "小明",
+					sex: "男"
+				}, {
+					name: "小红",
+					sex: "女"
+				}
+				]
+			}
+		}
+	});
+	
+	fetch("/hello/a", {
+		method: 'post',
+		headers: {
+			"Content-type": 'application/json',
+		},
+		credentials: 'include',
+		body: JSON.stringify({
+			
+			name: "刘明"
+		})
+	})
+	.then(res => res.json())
+	.then(json => {
+		console.log(json);
+	}).catch(error => {
+		console.log(`error: ${error}`);
+	});
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>阿龙，你好</title>
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+</head>
+<body>
+	<div v-if="seen" id="createTime">
+		{{ createTime }}
+	</div>
+	<div id="info" v-bind:title="message">
+		<input onkeyup="checkNumber(event)" v-model="message"> {{ message }}
+	<button v-on:click="counter(message)">Add</button>
+	</div>
+	<script src="static/js/vue.js"></script>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el:'#info',
+			data:{
+				message:0
+			},
+			methods:{
+				counter:function(number) {
+					console.log(typeof number);
+					if(typeof number === 'number') {
+						this.message += 1;
+					}else{
+						alert("请输入正确的数字");
+					}
+				}
+			}
+		});
+		var createTime = new Vue({
+			el: '#createTime',
+			data: {
+				createTime: '页面加载于' + new Date().toLocaleString(),
+				seen: true
+			},
+			methods: {
+				toggleSeen: (event) => {
+					console.log(event);
+					createTime.seen = !createTime.seen;
+				}
+			}
+		});
+		
+		function checkNumber(event) {
+			console.log(vm.message);
+			if(vm.message == ""){
+				vm.message = 0;
+			}
+			vm.message = parseFloat(vm.message);
+		}
+		
+		/* var ws = new WebSocket("ws://localhost:8080/websocket");
+		//连接发生错误的回调方法
+		ws.onerror = function () {
+			console.log("错误");
+		};
+		
+		//连接成功建立的回调方法
+		ws.onopen = function () {
+		}
+		
+		//接收到消息的回调方法
+		ws.onmessage = function (event) {
+		}
+		
+		//连接关闭的回调方法
+		ws.onclose = function () {
+		} */
+		function foo() {
+			console.log(this.a);
+		}
+		//var a = 2;
+		foo();
+	</script>
+</body>
+</html>
