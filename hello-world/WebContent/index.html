@@ -2,10 +2,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>阿龙，你好</title>
+<title>VUE HELLO</title>
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
+	<div id="app">
+		<h1>Hello App!</h1>
+		<p>
+			<router-link to="/foo">Go to Foo</router-link>
+			<router-link to="/bar">Go to Bar</router-link>
+		</p>
+		<router-view></router-view>
+	</div>
+	
+	
 	<div v-if="seen" id="createTime">
 		{{ createTime }}
 	</div>
@@ -14,6 +24,7 @@
 	<button v-on:click="counter(message)">Add</button>
 	</div>
 	<script src="static/js/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue-router@3.0.1/dist/vue-router.min.js"></script>
 	<script type="text/javascript">
 		var vm = new Vue({
 			el:'#info',

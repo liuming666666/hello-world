@@ -49,6 +49,7 @@
 			<mvc:mapping path="/**"/>
 			<mvc:exclude-mapping path="/view/login.html" />
 			<mvc:exclude-mapping path="/login" />
+			<mvc:exclude-mapping path="/static/**"/>
 			<bean class="cn.lm.hello.interceptors.LoginInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

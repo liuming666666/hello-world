@@ -12,19 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.lm.hello.exceptions.CustomException;
 import util.ResCode;
+import util.Result;
+import util.ResultUtil;
 
 @RestController
+@RequestMapping("/")
 public class HelloController{
 	
 	private static final Logger logger = LoggerFactory.getLogger(HelloController.class);
-	
-	@RequestMapping("/a")
-	public Map<String, Object> hello(String name) {
-		logger.info("你好, {}", name);
-		Map<String, Object> map = new HashMap<>();
-		map.put("hello", "hello");
-		return map;
-	}
 	
 	@RequestMapping("/exception")
 	public void test() {
@@ -32,8 +27,9 @@ public class HelloController{
 	}
 	
 	@RequestMapping("/login")
-	public void login(HttpServletRequest request) {
+	public Result<?> login(HttpServletRequest request) {
 		request.getSession().setAttribute("user", "");
+		return ResultUtil.success(null);
 	}
 	
 }

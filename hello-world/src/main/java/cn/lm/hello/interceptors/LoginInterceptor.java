@@ -23,8 +23,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		if(request.getSession().getAttribute("user") == null) {
-			logger.info("进入拦截器");
-			request.getRequestDispatcher("/view/login.html").forward(request, response);
+			logger.info("{}: 进入拦截器 {}", request.getRequestURI(), request.getSession().getAttribute("user"));
+			response.sendRedirect("/hello/view/login.html");
 			// 没有登陆
 			return false;
 		}

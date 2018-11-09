@@ -5,15 +5,20 @@
 <title>登陆</title>
 </head>
 <body>
-	<form action="/hello/login" method="post">
+	<form id="login-form">
 		用户名：<input type="text" name="userName">
 		密码：<input type="password" name="password">
-		<input type="submit" value="登陆">
+		<a @click="login">登陆</a>
 	</form>
 	<t-table id="t-table" :tableinfo="tableInfo">
 		
 	</t-table>
+	<p>我的颜色是什么?</p>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"></script>
+<script type="module">
+		import { pColor } from '../static/js/module1.js';
+		pColor('blue');
+	</script>
 <script type="text/javascript">
 	Vue.component('t-table', {
 		props: {
@@ -63,7 +68,7 @@
 		}
 	});
 	
-	fetch("/hello/a", {
+	/* fetch("/hello/a", {
 		method: 'post',
 		headers: {
 			"Content-type": 'application/json',
@@ -79,8 +84,30 @@
 		console.log(json);
 	}).catch(error => {
 		console.log(`error: ${error}`);
+	}); */
+	let loginForm = new Vue({
+		el: "#login-form",
+		data: {
+			
+		},
+		methods: {
+			login: function(e) {
+				e.preventDefault();
+				fetch("/hello/login", {
+					credentials: 'include'
+				})
+				.then(res => res.json())
+				.then(json => {
+					console.log(json);
+					if(json.success) {
+						location.href = "/hello";
+					} else {
+						alert(json.message);
+					}
+				});
+			}
+		}
 	});
-	
 </script>
 </body>
 </html>
